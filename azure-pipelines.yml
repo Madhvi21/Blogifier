@@ -30,17 +30,7 @@ stages:
           versionSpec: '5.x.x'
           checkLatest: true
 
-- stage: Run_Unit_Test
-  displayName: 'Run Unit Testing'
-  jobs:
-    - job: 
-      steps:      
-      - task: DotNetCoreCLI@2
-        displayName: 'Run Unit Test'
-        inputs:
-          command: 'test'
-          projects: '**/*.Tests/*.csproj'
-          arguments: '--configuration $(buildConfiguration)'
+####################################################################
 
 - stage: Application_Build
   displayName: 'Application Build'
@@ -57,6 +47,8 @@ stages:
       - script: dotnet build --configuration $(buildConfiguration)
         displayName: 'dotnet build $(buildConfiguration)'
 
+#######################################################################
+
 - stage: Publish_the_Build
   displayName: 'Publish the Build'
   jobs:
@@ -70,6 +62,22 @@ stages:
           projects: 'src/Blogifier/Blogifier.csproj'
           arguments: '--self-contained --runtime win-x86 --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
           zipAfterPublish: True
+          
+########################################################################
+
+- stage: Run_Unit_Test
+  displayName: 'Run Unit Testing'
+  jobs:
+    - job: 
+      steps:      
+      - task: DotNetCoreCLI@2
+        displayName: 'Run Unit Test'
+        inputs:
+          command: 'test'
+          projects: '**/*.Tests/*.csproj'
+          arguments: '--configuration $(buildConfiguration)'
+
+#########################################################################
 
 - stage: Publish_Artifact
   displayName: 'Publish Artifact'
