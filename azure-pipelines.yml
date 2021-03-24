@@ -27,7 +27,7 @@ steps:
   displayName: 'Run Unit Test'
   inputs:
     command: 'test'
-    projects: '**/*Test/*.csproj'
+    projects: '**/*.Tests/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
 
