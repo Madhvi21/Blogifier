@@ -52,13 +52,7 @@ stages:
       - script: dotnet build --configuration $(buildConfiguration)
         displayName: 'dotnet build $(buildConfiguration)'
 
-#######################################################################
 
-- stage: Publish_the_Build
-  displayName: 'Publish the Build'
-  jobs:
-    - job: 
-      steps:
       - task: DotNetCoreCLI@2
         displayName: 'dotnet publish $(buildConfiguration)'
         inputs:
@@ -68,6 +62,10 @@ stages:
           arguments: '--self-contained --runtime win-x86 --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
           zipAfterPublish: True
           
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
+          artifactName: 'Drop'
 ########################################################################
 
 - stage: Run_Unit_Test
@@ -82,14 +80,5 @@ stages:
           projects: '**/*.Tests/*.csproj'
           arguments: '--configuration $(buildConfiguration)'
 
-#########################################################################
 
-- stage: Publish_Artifact
-  displayName: 'Publish Artifact'
-  jobs:
-    - job: 
-      steps:
-      - task: PublishBuildArtifacts@1
-        inputs:
-          pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
-          artifactName: 'Drop'
+      
