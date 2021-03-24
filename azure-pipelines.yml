@@ -22,22 +22,10 @@ stages:
     steps:
     - checkout: none
     
-######################################################################
-
-- stage: Install_Packages
-  displayName: 'Install Packages'
-  jobs:
-    - job:
-      steps:
-      - task: UseDotNet@2
-        inputs:
-          packageType: 'sdk'
-          useGlobalJson: true
+#####################################################################
+      
  
-      - task: NuGetToolInstaller@1
-        inputs:
-          versionSpec: '5.x.x'
-          checkLatest: true
+      
 
 ####################################################################
 
@@ -45,7 +33,15 @@ stages:
   displayName: 'Application Build'
   jobs:
     - job: 
-      steps:  
+      steps: 
+      - task: UseDotNet@2
+        inputs:
+          packageType: 'sdk'
+          useGlobalJson: true
+      - task: NuGetToolInstaller@1
+        inputs:
+          versionSpec: '5.x.x'
+          checkLatest: true
       - task: NuGetCommand@2
         inputs:
           command: 'restore'
