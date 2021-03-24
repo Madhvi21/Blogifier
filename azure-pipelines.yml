@@ -11,6 +11,7 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
+  solution: '**/*.sln'
 
 steps:
 - task: UseDotNet@2
@@ -26,7 +27,7 @@ steps:
 - task: NuGetCommand@2
   inputs:
     command: 'restore'
-    restoreSolution: '**/*Test/*.csproj'
+    restoreSolution: '$(solution)'
     feedsToUse: 'select'
     noCache: true
     
