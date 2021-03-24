@@ -16,7 +16,7 @@ variables:
 stages:
 
 - stage: Install_Packages
-  displayName: 'Code'
+  displayName: 'Install Packages'
   jobs:
     - job:
       steps:
@@ -31,6 +31,7 @@ stages:
           checkLatest: true
 
 - stage: Run_Unit_Test
+  displayName: 'Run Unit Testing'
   jobs:
     - job: 
       steps:      
@@ -42,6 +43,7 @@ stages:
           arguments: '--configuration $(buildConfiguration)'
 
 - stage: Application_Build
+  displayName: 'Application Build'
   jobs:
     - job: 
       steps:  
@@ -56,6 +58,7 @@ stages:
         displayName: 'dotnet build $(buildConfiguration)'
 
 - stage: Publish_the_Build
+  displayName: 'Publish the Build'
   jobs:
     - job: 
       steps:
@@ -69,6 +72,7 @@ stages:
           zipAfterPublish: True
 
 - stage: Publish_Artifact
+  displayName: 'Publish Artifact'
   jobs:
     - job: 
       steps:
