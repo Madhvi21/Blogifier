@@ -23,7 +23,14 @@ steps:
   inputs:
     versionSpec: '5.x.x'
     checkLatest: true
-    
+- task: DotNetCoreCLI@2
+  displayName: 'Run Unit Test'
+  inputs:
+    command: 'test'
+    projects: '**/*Test/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
+
+
 - task: NuGetCommand@2
   inputs:
     command: 'restore'
