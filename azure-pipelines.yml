@@ -68,17 +68,7 @@ stages:
           artifactName: 'Drop'
 ########################################################################
 
-- stage: Run_Unit_Test
-  displayName: 'Run Unit Testing'
-  jobs:
-    - job: 
-      steps:      
-      - task: DotNetCoreCLI@2
-        displayName: 'Run Unit Test'
-        inputs:
-          command: 'test'
-          projects: '**/*.Tests/*.csproj'
-          arguments: '--configuration $(buildConfiguration)'
+
 
 
       
